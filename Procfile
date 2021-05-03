@@ -1,0 +1,1 @@
+web: gunicorn imshare.wsgi --log-file -

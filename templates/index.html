@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div id="content" class="main-content">
+    <div class="layout-px-spacing">
+
+        {% include 'messages.html' %}
+        <div class="row layout-top-spacing">
+
+            {% for photo in paginator_photos %}
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                    <div class="widget widget-chart-one">
+                        <div class="widget-heading">
+                            <ul class="tabs tab-pills">
+                                <span style="text-align: center;" class="badge bg-primary notify-badge">{{ photo.category }}</span>
+                            </ul>
+                        </div>
+                        <div class="widget-content">
+                            <a href="{% url 'photo' photo.id %}">
+                                <div class="tabs tab-content">
+                                    <img class="image-thumbnail rounded" src={{ photo.image.url }} alt="Card image cap">
+                                </div>
+                            </a>
+                            <div class="m-3">
+                                <p class="card-text">{{ photo.description }}</p>
+                                <p>{{ request.user.email }}</p>
+                            </div>
+                        </div>
+
+                        <form action="{% url 'like-post' %}" method="POST" class="like-form" id="{{ photo.id }}">
+                            {% csrf_token %}
+                            <input type="hidden" name="post_id" value={{ photo.id }}>
+
+                            <div class="row">
+                                <div class="col">
+                                    <button class='btn btn-primary like-button btn-sm like-btn-{{photo.id}}' type='submit' >
+                                        {% if user not in photo.liked.all %}
+                                            <i class="fa fa-heart-o m-2" aria-hidden="true"></i>
+                                            <p hidden>Like</p>
+                                        {% else %}
+                                            <i class="fa fa-heart m-2" aria-hidden="true"></i>
+                                            <p hidden>UnLike</p>
+                                        {% endif %}
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <div class="like-count-{{photo.id}}"><b> {{ photo.num_likes }} likes</b></div>
+                                </div>
+                                <div class="col">
+                                    <a href="{% url 'photo' photo.id %}"><i class="fa fa-code embed-image" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

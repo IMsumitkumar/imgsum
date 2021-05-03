@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+{% block pagination %}
+{% endblock %}
+
+<div id="content" class="main-content">
+    <div class="layout-px-spacing">
+        {% include 'messages.html' %}
+
+        <div class="row layout-top-spacing">
+            <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                <div class="widget widget-chart-one">
+                    <div class="widget-heading">
+                        <li>
+                            <img src="#" class="rounded-circle post-profile-img" alt="avatar" /><strong>sumit</strong>
+                        </li>
+                        <ul class="tabs tab-pills">
+
+                        </ul>
+                    </div>
+
+                    <div class="widget-content">
+                            <img class="rounded" style="max-width: 100%; max-height:100%;"
+                              src="{{ photo.image.url }}"
+                            >
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                <div class="widget widget-activity-four">
+                    <div class="widget-heading">
+                        <h5 class="">Recent Comments</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
